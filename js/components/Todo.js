@@ -8,13 +8,15 @@ class Todo {
             title: 'Add new task',
             action: 'add'
         }
+        this.url = 'https://gurar.github.io/Todo-list/todo-list.json';
     }
 
-    init() {
+   init() {
         if(!this.isValidSelector()) {
             return false
         }
         this.updateTask();
+        this.generateForm(this.addForm);
         this.render();
         this.events();
     }
@@ -26,6 +28,12 @@ class Todo {
         }
         this.DOM = DOM;
         return true;
+    }
+
+   async fetch() {
+        const response = await fetch(this.url);
+        const data = await response.json();
+        return data;
     }
 
     
@@ -63,9 +71,9 @@ class Todo {
         this.addEvents();
     }
 
-    render() {
+    async render() {
+        this.taskList = await this.fetch();
         this.renderList();
-        this.generateForm(this.addForm);
     }
 
     events() {
