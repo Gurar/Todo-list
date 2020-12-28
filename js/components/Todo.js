@@ -16,8 +16,9 @@ class Todo {
             return false
         }
         this.updateTask();
+        this.generateForm(this.addForm);
         this.render();
-        // this.events();
+        this.events();
     }
 
     isValidSelector() {
@@ -73,7 +74,6 @@ class Todo {
     async render() {
         this.taskList = await this.fetch();
         this.renderList();
-        this.generateForm(this.addForm);
     }
 
     events() {
